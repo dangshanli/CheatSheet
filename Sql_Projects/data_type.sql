@@ -1,0 +1,21 @@
+SELECT b'1001';
+SELECT b'1001'+0,CAST(0b1001 AS UNSIGNED);
+
+# 16进制，x'val' 0xval都可以
+SELECT x'4a',0x4a;
+
+# 解释，默认解释成对应字符，每8个字节对应一个字符
+# 数值上下文解释成数值
+SELECT X'61626364',0x61626364+0;
+
+# 字符集->collation(排序规则)
+SHOW CHARACTER SET;
+SHOW COLLATION;
+
+SELECT CHARSET(X'0123'),COLLATION(X'0123');
+
+SET @s1 = _UCS2 'ABCD';
+SET @s2 = CONVERT('ABCD' USING UCS2);
+SELECT @s1,@s2;
+
+SELECT CHAR_LENGTH(@s1),LENGTH(@s1),CHAR_LENGTH(@s2),LENGTH(@s2);
