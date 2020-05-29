@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+
+    <style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(6, 100px);
+            grid-row-gap: 2px;
+            grid-column-gap: 5px;
+            grid-template-areas:
+                "h h h h"
+                "a m m m"
+                "a m m m"
+                "a m m m"
+                "a m m m"
+                "f f f f";
+        }
+
+        header {
+            grid-area: h;
+            text-align: center;
+            background-color: antiquewhite;
+
+        }
+
+        main {
+            grid-area: m;
+            background-color: darkgrey;
+        }
+
+        aside {
+            grid-area: a;
+            background-color: darkgray;
+
+        }
+
+        footer {
+            grid-area: f;
+            text-align: center;
+            background-color: aqua;
+        }
+
+        .wrapper>.bb {
+            /* border: 1px red solid; */
+        }
+
+        h3 {
+            color: blueviolet;
+            font-size: 2em;
+        }
+
+        .wrapper .bb .s1,
+        .s2 {
+
+            background-color: burlywood;
+            width: 30%;
+            margin-top: 10px;
+            margin-left: 80px;
+            border: 2px purple solid;
+            border-radius: 8px;
+            text-shadow: 1px;
+            text-align: center;
+
+        }
+
+        .s1,.s2:hover {
+            cursor: pointer;
+        }
+
+        .wrapper .bb .content {
+            width: 60%;
+            align-content: center;
+            /* border: 1px red solid; */
+            margin-left: 200px;
+            text-align: center;
+            color: purple;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <header class="bb">
+            <h3>My Homes Page</h3>
+        </header>
+
+        <main class="bb">
+            <div class="content">
+                <h5>标题</h5>
+                <p class="au">作者</p>
+                <div class="poem"></div>
+            </div>
+
+        </main>
+
+        <aside class="bb">
+            <div class="s1">静夜诗</div>
+            <div class="s1">凉州词</div>
+            <div class="s2">菜单</div>
+        </aside>
+
+
+        <footer class="bb">
+            李白与王翰的诗
+            <div class="menu">
+
+            </div>
+        </footer>
+    </div>
+
+</body>
+<script>
+    bus = document.querySelectorAll('.wrapper .bb .s1');
+    for (let i = 0; i < bus.length; i++) {
+        const bu = bus[i];
+        bu.onclick = show_poem;
+    }
+
+    menu_ = document.querySelector('.wrapper .bb .s2');
+    menu_.onclick = getMenu;
+
+    p_head = document.querySelector('.content h5');
+    p_au = document.querySelector('.content .au');
+    p_content = document.querySelector('.content .poem');
+
+
+    function show_poem() {
+        let h;
+        let au;
+        let con;
+        removeAllChild(p_content);
+
+        if (this.textContent === '静夜诗') {
+            h = '静夜诗'
+            au = '李白'
+            con = '床前明月光|疑是地上霜|' +
+                '举头望明月|低头思故乡';
+
+
+        } else if (this.textContent === '凉州词') {
+            h = '凉州词'
+            au = '王翰'
+            con = '葡萄美酒夜光杯|欲饮琵琶马上催|' +
+                '醉卧沙场君莫笑|古来征战几人回';
+        }
+        p_head.textContent = h;
+        p_au.textContent = au;
+
+        const ppoem = con.split('|');
+        ppoem.forEach(pp => {
+            let s = document.createElement('p');
+            s.textContent = pp;
+            p_content.appendChild(s);
+        });
+    }
+
+    function removeAllChild(parent) {
+        while (parent.firstElementChild) {
+            let c = p_content.firstElementChild;
+            parent.removeChild(c);
+        }
+
+    }
+
+    function getMenu() {
+        const url = 'http://www.localhost:9999/menu'
+        fetch(url, {
+            method: 'GET',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(json => resolveJson(json));
+    }
+
+    function resolveJson(json) {
+        console.log(json);
+        console.log(json['apple']);
+        foot = document.querySelector('footer');
+        let p = 'banana price:'+json['banana'];
+        let ul_ = document.createElement('ul');
+        let li_ = document.createElement('li');
+        li_.textContent = p;
+        ul_.appendChild(li_);
+        foot.appendChild(ul_);
+
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>adict</key>
+	<dict>
+		<key>aboo</key>
+		<true/>
+		<key>anString</key>
+		<string>&lt;hello &amp; hi there&gt;</string>
+		<key>anboo</key>
+		<false/>
+		<key>ath</key>
+		<string>Mässig,Maß</string>
+	</dict>
+	<key>afloat</key>
+	<real>0.3</real>
+	<key>alist</key>
+	<array>
+		<string>A</string>
+		<string>B</string>
+		<integer>12</integer>
+		<real>33.2</real>
+		<array>
+			<integer>1</integer>
+			<integer>2</integer>
+			<integer>3</integer>
+		</array>
+	</array>
+	<key>anint</key>
+	<integer>222</integer>
+	<key>s</key>
+	<string>Doogah</string>
+	<key>someData</key>
+	<data>
+	PGJpbmFyeSBndW5rPg==
+	</data>
+	<key>somemoredata</key>
+	<data>
+	PGxvdHMgb2YgYmluYXJ5IGd1bms+PGxvdHMgb2YgYmluYXJ5IGd1bms+PGxvdHMgb2Yg
+	YmluYXJ5IGd1bms+PGxvdHMgb2YgYmluYXJ5IGd1bms+PGxvdHMgb2YgYmluYXJ5IGd1
+	bms+PGxvdHMgb2YgYmluYXJ5IGd1bms+PGxvdHMgb2YgYmluYXJ5IGd1bms+PGxvdHMg
+	b2YgYmluYXJ5IGd1bms+PGxvdHMgb2YgYmluYXJ5IGd1bms+PGxvdHMgb2YgYmluYXJ5
+	IGd1bms+
+	</data>
+</dict>
+</plist>
