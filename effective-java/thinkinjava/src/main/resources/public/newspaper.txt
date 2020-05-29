@@ -1,0 +1,14 @@
+Apple Cracks Down on Apps That Fight iPhone Addiction
+
+SAN FRANCISCO — They all tell a similar story: They ran apps that helped people
+limit the time they and their children spent on iPhones. Then Apple created its
+own screen-time tracker. And then Apple made staying in business very, very difficult.
+
+Over the past year, Apple has removed or restricted at least 11 of the 17 most
+downloaded screen-time and parental-control apps, according to an analysis by
+The New York Times and Sensor Tower, an app-data firm. Apple has also clamped
+down on a number of lesser-known apps.
+
+In some cases, Apple forced companies to remove features that allowed parents to
+control their children’s devices or that blocked children’s access to certain apps
+and adult content. In other cases, it simply pulled the apps from its App Store.
