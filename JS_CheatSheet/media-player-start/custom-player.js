@@ -31,7 +31,7 @@ function stopMedia() {
     rwd.classList.remove('active');
     fwd.classList.remove('active');
     clearInterval(intervalRwd);
-    clearInterval(intervalFwd);
+    clearInterval(intervalFwd); 
 }
 
 rwd.addEventListener('click', mediaBackward);

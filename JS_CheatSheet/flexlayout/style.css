@@ -1,0 +1,60 @@
+@media(min-width:768px){/*当width>768px的时候，才使用flex*/
+    .container-1{
+        display: flex;
+        /*align-items: flex-start;
+        align-items: flex-end;
+        align-items: center;
+        align-items: stretch;*/
+    
+        /* flex-direction: column; */
+    }
+
+    .container-2{
+        display: flex;
+    
+        justify-content: flex-start;
+        justify-content: flex-end;
+        justify-content: center;
+        justify-content: space-between;
+    }
+}
+
+.container-3{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.container-1 div,.container-2 div,.container-3 div{
+    border: 1px black solid;
+    padding: 10px; 
+}
+
+.box-1{
+    flex: 2;
+    order: 2;
+}
+
+.box-2{
+    /* 权重 */
+    flex: 1;
+    /* 次序 */
+    order: 1;
+}
+
+.box-3{
+    flex: 1;
+    order: 3;
+}
+
+
+
+.container-2-box{
+    width: 25%;
+    flex-basis: 30%;/*替代width*/
+}
+
+.container-3-box{
+    flex-basis: 12%;
+}
+

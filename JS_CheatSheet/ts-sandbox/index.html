@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Learning TypeScript</title>
+    <script src="function.js" async></script>
+
+    <style>
+        .index {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="index">点击</div>
+</body>
+
+<script>
+    function hello(thing) {
+        // console.log(this['suit'][2] +' say hello to '+thing);
+        // console.log(this.name + ' say hello to ' + thing);
+        console.log(this + ' say hello to ' + thing);
+    }
+
+    // var s = {
+    //     suit: ['dragonBorn', 'knight', 'lion'],
+    //     sise: 13
+    // };
+
+    // hello.call('karas', 'miku princess');
+    // name = 'ada';
+    // hello('world')
+
+    var person = {
+        name: 'brendan eich',
+        hello: function (thing) {
+            console.log(this.name + ' say hello ' + thing);
+        }
+    }
+
+    // person.hello('world');
+    // person.hello.call(person,'world');
+
+    // person = { name: 'brendan eich' };
+    // person.hello = hello;
+
+    // person.hello('world');
+    // hello('world');
+
+    // var boundHello = function(thing){
+    //     return person.hello(thing);
+    // };
+    // boundHello('world');
+
+    var bind = function (func, thisValue) {
+        return function () {
+            return func.apply(thisValue, arguments);
+        }
+    }
+
+    dog = {
+        name: 'liang-xing'
+    }
+
+    var boundHello = bind(person.hello, dog);
+    boundHello("world") // "Brendan Eich says hello world"
+    person.hello('world');
+
+    const div = document.querySelector('.index');
+    div.onclick = person.hello;
+</script>
+
+</html>

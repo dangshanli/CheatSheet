@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Event Capture And Bubble</title>
+
+    <style>
+        .d1 {
+            padding: 20px;
+            width: 500px;
+            border: 2px red solid;
+        }
+
+        .sand {
+            padding: 20px;
+            width: 300px;
+            border: 2px solid blue;
+        }
+
+        .mia {
+            padding: 20px;
+            width: 60px;
+            border: 2px solid blueviolet;
+        }
+
+        .pp {
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+
+        .pp p {
+            width: 300px;
+            height: 100px;
+            ;
+            border: 2px solid black;
+            text-align: center;
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="d1">
+        <div class="sand">
+            <div class="mia">mia</div>
+        </div>
+    </div>
+
+    <div class="pp">
+        <p class="p1">p1</p>
+        <p class="p2">p2</p>
+        <p class="p3">p3</p>
+    </div>
+
+    <script>
+        var d1 = document.querySelector('.d1');
+        var sand = document.querySelector('.sand');
+        var mia = document.querySelector('.mia');
+
+        const p1 = document.querySelector('.p1');
+        const p2 = document.querySelector('.p2');
+        const p3 = document.querySelector('.p3');
+
+        d1.onclick = function (e) {
+            console.log('p1');
+
+            setTimeout(() => {
+                { p1.textContent = new Date(); }
+            }, 100);
+        }
+
+        sand.onclick = function () {
+            console.log('p2');
+
+            setTimeout(() => {
+                { p2.textContent = new Date(); }
+            }, 100);
+        }
+
+        mia.onclick = function (e) {
+            console.log('p3');
+            e.stopPropagation();
+            setTimeout(() => {
+                { p3.textContent = new Date(); }
+            }, 100);
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple synchronous JS example</title>
+</head>
+
+<body>
+    <button>Click me</button>
+
+</body>
+<script>
+
+    const btn = document.querySelector('button');
+    const worker = new Worker('D:/Idea-Porjects/webdev-front-end/js-sync/worker.js');
+
+    btn.addEventListener('click', () => {
+        worker.postMessage('Go');
+
+        let pElem = document.createElement('p');
+        pElem.textContent = 'This is a newly-added paragraph.';
+        document.body.appendChild(pElem);
+    });
+
+    worker.onmessage = function (e) {
+        console.log(e.date);
+    }
+</script>
+
+</html>

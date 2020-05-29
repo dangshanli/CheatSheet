@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>simple async sync example</title>
+</head>
+
+<body>
+
+
+    <script>
+        console.log('starting');
+        let image;
+
+        fetch('https://raw.githubusercontent.com/mdn/learning-area/master/javascript/asynchronous/introducing/coffee.jpg')
+            .then(response => {
+                console.log('it works');
+                return response.blob();
+            })
+            .then(myBlob => {
+                let coffeeImg = URL.createObjectURL(myBlob);
+                image = document.createElement('img');
+                image.src = coffeeImg;
+                document.body.appendChild(image);
+            })
+            .then(()=>{
+                console.log('all done! '+image+' displayed.');
+            })
+            .catch(error => {
+                console.log('fetch encounter a problem: ' + error.message);
+            });
+
+    </script>
+</body>
+
+</html>

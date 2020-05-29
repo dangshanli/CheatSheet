@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Async Await</title>
+</head>
+
+<body>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, inventore aperiam accusantium iusto eligendi
+        corrupti natus consequatur voluptatem quasi ipsam modi eum maxime ratione beatae provident iure aut dolore
+        facilis.</p>
+</body>
+
+<script>
+
+    const url = 'https://raw.githubusercontent.com/mdn/learning-area/master/javascript/asynchronous/async-await/coffee.jpg';
+    fetch(url)
+        .then(response => response.blob())
+        .then(myBlob => {
+            let objUrl = URL.createObjectURL(myBlob);
+            let image = document.createElement('img');
+            image.src = objUrl;
+            document.body.appendChild(image);
+        })
+        .catch(err => {
+            console.log('something wrong when fetch or resolve the blob: ' + err.message);
+        });
+
+    async function myFetch() {
+        try {
+            let response = await fetch(url);
+            let myBlob = await response.blob();
+
+            let objUrl = URL.createObjectURL(myBlob);
+            let image = document.createElement('img');
+            image.src = objUrl;
+            document.body.appendChild(image);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    myFetch();
+
+    async function fetchPromise() {
+        let response = await fetch(url);
+        return await response.blob();
+    }
+
+    fetchPromise().then(blob => {
+        let objUrl = URL.createObjectURL(blob);
+        let image = document.createElement('img');
+        image.src = objUrl;
+        document.body.appendChild(image);
+    }).catch(e => {
+        console.log(e);
+    });
+
+    class Person {
+        constructor(first, last, age, gender, interests) {
+            this.name = {
+                first,
+                last
+            };
+            this.age = age;
+            this.gender = gender;
+            this.interests = interests;
+        }
+
+        async greeting(){
+            return await Promise.resolve(`Hi!I'm ${this.name.first}`);
+        };
+
+        farewell(){
+            console.log(`${this.name.first} left`);
+        };
+    }
+
+    let han = new Person('Han','Sole',23,'male',['painting','sing']);
+    han.greeting().then(value=>{
+        console.log(value+' '+value);
+    });
+
+
+</script>
+
+</html>

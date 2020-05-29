@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetch Data</title>
+    <style>
+        .wrapper {
+            width: 90%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 2em;
+            margin: 20px auto;
+        }
+
+        .wrapper .box {
+            border: 3px solid #BBFFFF;
+            background-color: #DCDCDC;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"> </div>
+    </div>
+
+</body>
+
+<script>
+    let boxes = document.querySelectorAll('.box');
+    const commentsUrl = 'https://jsonplaceholder.typicode.com/comments?postId=1';
+
+    fetch(commentsUrl)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+            for (let i = 0; i < boxes.length; i++) {
+                let box = boxes[i];
+                let comment = json[0];
+                let p1 = document.createElement('p');
+                let p2 = document.createElement('p');
+                let p3 = document.createElement('p');
+                let p4 = document.createElement('p');
+                p1.textContent = 'id: ' + comment['id'];
+                p2.textContent = 'name: ' + comment['name'];
+                p3.textContent = 'email: ' + comment['email'];
+                p4.textContent = 'body: ' + comment['body'];
+
+                box.appendChild(p1);
+                box.appendChild(p2);
+                box.appendChild(p3);
+                box.appendChild(p4);
+
+            }
+        })
+        .catch(
+            (error) => { console.log('Fetch problem: ' + error.message); }
+        );
+
+
+</script>
+
+</html>

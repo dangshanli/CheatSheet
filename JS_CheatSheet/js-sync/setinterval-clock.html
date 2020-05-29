@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple setInterval clock</title>
+
+    <style>
+        p {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="clock">00:00:00</p>
+    <button class="start">start</button>
+    <button class="stop">stop</button>
+    <button class="reset">reset</button>
+</body>
+
+
+<script>
+    const start = document.querySelector('.start');
+    const stop = document.querySelector('.stop');
+    const reset = document.querySelector('.reset');
+
+    let begin;
+    let lastSecond = 0;
+    let durable = 0;
+
+    start.onclick = function () {
+        let startTime = Date.now();
+
+        begin = setInterval(function () {
+            durable = (Date.now() - startTime) / 1000 + lastSecond;
+
+            let hour = Math.floor(durable / 3600);
+            let mid = durable % 3600;
+            let min = Math.floor(mid / 60);
+            let second = Math.floor(mid % 60);
+
+            let text = (hour < 10 ? '0' + hour.toString() : hour.toString()) + ':'
+                + (min < 10 ? '0' + min.toString() : min.toString()) + ':'
+                + (second < 10 ? '0' + second.toString() : second.toString());
+
+            document.querySelector('.clock').textContent = text;
+        }, 1000);
+        start.disabled = true;
+    };
+
+    stop.onclick = function () {
+        lastSecond = durable;
+        clearInterval(begin);
+        start.disabled = false;
+    };
+
+    reset.onclick = function () {
+        document.querySelector('.clock').textContent = '00:00:00';
+        clearInterval(begin);
+        lastSecond = 0;
+        start.disabled = false;
+    }
+
+</script>
+
+</html>

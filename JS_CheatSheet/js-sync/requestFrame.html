@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>simple request frame animation</title>
+    <style>
+        html {
+            background-color: white;
+            height: 100%;
+        }
+
+        body {
+            height: inherit;
+            background-color: red;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div {
+            display: inline-block;
+            font-size: 10rem;
+        }
+    </style>
+</head>
+
+<body>
+    <p>this is my page</p>
+
+    <div>↻</div>
+   
+
+</body>
+
+<script>
+    const spinner = document.querySelector('div');
+
+    let rotateCount = 0;
+    let rAF;
+    let startTime = null;
+
+    let run = false;
+
+    function draw(timestamp) {
+        if (!startTime) {
+            startTime = timestamp;
+        }
+
+        let rotateCount = (timestamp - startTime) / 3;
+        spinner.style.transform = 'rotate(' + rotateCount + 'deg)';
+        if (rotateCount > 359) {
+            rotateCount -= 360;
+        }
+        rAF = requestAnimationFrame(draw);
+    }
+
+    spinner.onclick = function () {
+        if (!run) {
+            draw();
+            run = true;
+        } else {
+            cancelAnimationFrame(rAF);
+            run = false;
+        }
+    }
+
+
+
+
+</script>
+
+
+</html>
