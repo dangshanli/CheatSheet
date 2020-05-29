@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple DOM example</title>
+
+    <style>
+        .highlight {
+            color: white;
+            background-color: black;
+            padding: 10px;
+            width: 250px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <img src="https://raw.githubusercontent.com/mdn/learning-area/master/javascript/apis/document-manipulation/dinosaur.png"
+            alt="A red Tyrannosaurus Rex: A two legged dinosaur standing upright like a human, with small arms, and a large head with lots of sharp teeth.">
+        <p>Here we will add a link to the <a href="https://www.mozilla.org/">Mozilla homepage</a></p>
+    </section>
+</body>
+
+<script>
+    //select a node and manupulate it
+    var link = document.querySelector('a');
+    link.textContent = 'Mozilla开发者网络';
+    link.href = 'https://developer.mozilla.org';
+
+    //create a new node
+    var sect = document.querySelector('section');
+    var para = document.createElement('p');
+    para.textContent = 'we hope you enjoyed the ride.';
+    sect.appendChild(para);
+
+    var text = document.createTextNode('——the premier source for web development konwledge.');
+    var linkPara = document.querySelector('p');
+    linkPara.appendChild(text);
+
+    //移动节点，将linkPara节点添加到section底部
+    sect.appendChild(linkPara);
+
+    //删除节点,需要被删除节点的引用以及其父节点
+    // sect.removeChild(linkPara);
+
+    //只有被删除节点的引用
+    // linkPara.parentNode.removeChild(linkPara);
+
+    //修改样式，添加内联样式
+    /*    para.style.color = 'white';
+        para.style.backgroundColor = 'black';
+        para.style.padding = '10px';
+        para.style.width = '250px';
+        para.style.textAlign = 'center';
+        */
+
+    para.setAttribute('class','highlight');
+
+
+
+
+
+
+</script>
+
+</html>

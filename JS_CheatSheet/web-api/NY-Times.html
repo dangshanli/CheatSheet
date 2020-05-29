@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NY Times API example</title>
+    <link rel="stylesheet" href="nytimes.css">
+</head>
+
+<body>
+    <h1>NY Times video search</h1>
+
+    <div class="wrapper">
+
+        <div class="controls">
+            <form action="">
+                <p>
+                    <label for="search">Enter a single serach term (required):</label>
+                    <input type="text" id="search" class="search">
+                </p>
+
+                <p>
+                    <label for="start-date">Enter a start date (format YYYYMMDD):</label>
+                    <input type="text" id="start-date" class="start-date" pattern="[0-9]{8}">
+                </p>
+
+                <p>
+                    <label for="end-date">Enter an end date(format YYYYMMDD):</label>
+                    <input type="text" id="end-date" class="end-date">
+                </p>
+
+                <p>
+                    <button class="submit">Submit serach</button>
+                </p>
+            </form>
+        </div>
+
+        <div class="result">
+            <nav>
+                <button class="prev">Previous 10</button>
+                <button class="next">Next 10</button>
+            </nav>
+            <section>
+
+            </section>
+        </div>
+
+
+    </div>
+
+    <script>
+        const baseUrl = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+        const key = 'jHFRHw7YA3h3QZpFR5iGNsqGWPYqhYkJ';
+        let url;
+
+        const searchTerm = document.querySelector('.search');
+        const startDate = document.querySelector('.start-date');
+        const endDate = document.querySelector('.end-date');
+        const searchForm = document.querySelector('form');
+        const submitBtn = document.querySelector('.submit');
+
+        const nextBtn = document.querySelector('.next');
+        const previousBtn = document.querySelector('.prev');
+
+        const section = document.querySelector('section');
+        const nav = document.querySelector('nav');
+
+        nav.style.display = 'none';
+        let pageNumber = 0;
+        let displayNav = false;
+
+        searchForm.addEventListener('submit', fetchResults);
+
+        function fetchResults(e) {
+            e.preventDefault();
+            url = baseUrl + '?api-key=' + key + '&page=' + pageNumber + '&q=' + searchTerm.value;
+
+            if (startDate.value !== '') {
+                url += '&begin_date=' + startDate.value;
+            }
+
+            if (endDate.value !== '') {
+                url += '&end_date=' + endDate.value;
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(json => {
+                    displayResult(json);
+                }).
+                catch(
+                    err => {
+                        console.log('some error:' + err.message)
+                    });
+
+        }
+
+        function displayResult(json) {
+            while (section.firstChild) {
+                section.removeChild(section.firstChild);
+            }
+
+            let articles = json.response.docs;
+
+            if (articles.length === 10) {//>=10个item则显示翻页按钮
+                nav.style.display = 'block';
+            } else {
+                nav.style.display = 'none';
+            }
+
+            if (articles.length === 0) {
+                let para = document.createElement('p');
+                para.textContent = '无查询结果.';
+                section.appendChild(para);
+            } else {
+                for (let i = 0; i < articles.length; i++) {
+                    const current = articles[i];
+                    console.log(current);
+
+                    let article = document.createElement('article');
+                    let heading = document.createElement('h2');
+                    let link = document.createElement('a');
+                    let img = document.createElement('img');
+                    let para1 = document.createElement('p');
+                    let para2 = document.createElement('p');
+                    let clearfix = document.createElement('div');
+
+                    link.href = current.web_url;
+                    link.textContent = current.headline.main;
+                    para1.textContent = current.lead_paragraph;
+                    para2.textContent = 'keyWords: ';
+                    for (let j = 0; j < current.keywords.length; j++) {
+                        let span = document.createElement('span');
+                        span.textContent += current.keywords[j].value + ' ';
+                        para2.appendChild(span);
+                    }
+
+                    if (current.multimedia.length > 0) {
+                        img.src = 'http://www.nytimes.com/' + current.multimedia[0].url;
+                        img.alt = current.headline.main;
+                    }
+
+                    clearfix.setAttribute('class', 'clearfix');
+
+                    article.appendChild(heading);
+                    heading.appendChild(link);
+                    article.appendChild(img);
+                    article.appendChild(para1);
+                    article.appendChild(para2);
+                    article.appendChild(clearfix);
+                    section.appendChild(article);
+                }
+            }
+        };
+
+        nextBtn.addEventListener('click', nextPage);
+        previousBtn.addEventListener('click', previousPage);
+
+        function nextPage(e) {
+            pageNumber++;
+            fetchResults(e);
+        }
+
+        function previousPage(e) {
+            if (pageNumber >= 1) {
+                pageNumber--;
+            } else {
+                return;
+            }
+            fetchResults(e);
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

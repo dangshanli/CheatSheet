@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our superheroes</title>
+
+    <link rel="stylesheet" href="heroes.css">
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <section>
+
+    </section>
+
+    <script>
+        const header = document.querySelector('header');
+        const section = document.querySelector('section');
+
+        //构建get请求
+        const requestUrl = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+        const request = new XMLHttpRequest();
+        request.open('GET', requestUrl);
+        // request.responseType = 'json'; //返回json对象
+        request.responseType = 'text';//返回文本字符串
+        request.send();
+        //回调事件
+        request.onload = function () {
+            // let superHeroes = request.response;
+
+            let superHeroesText = request.response;
+            let superHeroes = JSON.parse(superHeroesText);
+
+            populateHeader(superHeroes);
+            showHeroes(superHeroes);
+        }
+
+        function populateHeader(jsonObj) {
+            //header 创建h1标题
+            let myH1 = document.createElement('h1');
+            myH1.textContent = jsonObj['squadName'];
+            header.appendChild(myH1);
+
+            //header 创建段落
+            let myPara = document.createElement('p');
+            myPara.textContent = 'Hometown: ' + jsonObj['homeTown'] + '// Formed: ' + jsonObj['formed'];
+            header.appendChild(myPara);
+        }
+
+        function showHeroes(jsonObj) {
+            let heroes = jsonObj['members'];
+            for (let i = 0; i < heroes.length; i++) {
+                const element = heroes[i];
+                let myArticle = document.createElement('article');
+                let myH2 = document.createElement('h2');
+                let p1 = document.createElement('p');
+                let p2 = document.createElement('p');
+                let p3 = document.createElement('p');
+                let myList = document.createElement('ul');
+
+                myH2.textContent = element.name;
+                p1.textContent = 'Secret identity: ' + element.secretIdentity;
+                p2.textContent = 'Age: ' + element.age;
+                p3.textContent = 'Superpowers:';
+
+                let superPowers = element.powers;
+                for (let j = 0; j < superPowers.length; j++) {
+                    const power = superPowers[j];
+                    const listItem = document.createElement('li');
+                    listItem.textContent = power;
+                    myList.appendChild(listItem);
+                }
+
+                myArticle.appendChild(myH2);
+                myArticle.appendChild(p1);
+                myArticle.appendChild(p2);
+                myArticle.appendChild(p3);
+                myArticle.appendChild(myList);
+                section.appendChild(myArticle);
+            }
+        }
+
+        var myJSON = { "name" : "Chris", "age" : "38" };
+        var myString = JSON.stringify(myJSON);
+
+    </script>
+
+</body>
+
+</html>

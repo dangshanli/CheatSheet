@@ -1,0 +1,84 @@
+.wrapper{
+    width:90%;
+    max-width: 960px;
+    margin: 0 auto;
+    /* 网格布局 */
+    display: grid;
+    /* 列弹性布局 */
+    grid-template-columns: repeat(12,1fr);
+    /* 沟槽大小 */
+    grid-gap: 20px;
+}
+
+.col{
+    background-color: rgb(255,150,150);
+    border: 1px solid black;
+    text-align: center;
+}
+
+.span2 { grid-column: auto / span 2;}
+.span3 { grid-column: auto / span 3;}
+.span4 { grid-column: auto / span 4;}
+.span5 { grid-column: auto / span 5;}
+.span6 { grid-column: auto / span 6;}
+.span7 { grid-column: auto / span 7;}
+.span8 { grid-column: auto / span 8;}
+.span9 { grid-column: auto / span 9;}
+.span10 { grid-column: auto / span 10;}
+.span11 { grid-column: auto / span 11;}
+.span12 { grid-column: auto / span 12;}
+
+.content{
+    grid-column: 2 / 9;
+    grid-row: 3 / 10;
+}
+
+/* box */
+.box{
+    width: 90%;
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px,auto);
+}
+
+.box div{
+    background-color: aquamarine;
+    border: 1px solid black;
+    text-align: center;
+    opacity: 0.6;
+}
+
+.one{
+    grid-column: 1 / 3;
+    grid-row: 1 ;
+}
+
+.two{
+    grid-column: 2 /4;
+    grid-row: 1/3;
+}
+
+/* 1 等于 1/2 */
+/* 当被分成三等分的时候，标尺为1-2-3-4 */
+.three{
+    grid-column: 1;
+    grid-row: 2/5;
+}
+
+.four{
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.five{
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.six{
+    grid-column: 3;
+    grid-row: 4;
+}
+
